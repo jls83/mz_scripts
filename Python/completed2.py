@@ -26,7 +26,7 @@ def CompletedList(dir): #gives list of description files from a directory
 			dst.append(i) #add it to the list
 	return dst #return list of description files
 			
-# End Functinon Definitions
+# End Function Definitions
 
 posted_dir = '/cygdrive/c/Users/JSanders/Documents/Posted/'
 archive_dir = '/cygdrive/c/Users/JSanders/Documents/Posted/Archive/'
