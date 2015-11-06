@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+
+import datetime
+
+dict = {}
+
+today = datetime.datetime.today()
+
+if today.strftime('%m')[0] == '1':
+	month = today.strftime('%m')
+else:
+	month = today.strftime('%m')[1]
+
+if today.strftime('%d')[0] == '1':
+	day = today.strftime('%d')
+else:
+	day = today.strftime('%d')[1]
+
+date = month + '-' + day
+
+sku_input = raw_input("Enter SKU Number: ")
+
+file_desc = 'C:\Users\JSanders\Documents\Posted\Descriptions ' + date + '.txt'
+
+if sku_input not in open(file_desc).read():
+	date = raw_input("Description date (m-d format): ")
+
+file_list = 'C:\Users\JSanders\Documents\Posted\Lists ' + date + '.html'
+file_desc = 'C:\Users\JSanders\Documents\Posted\Descriptions ' + date + '.txt'
+
+lists = open(file_list)
+list = lists.read()
+list = list.split('\n\n\n')
+
+descs = open(file_desc)
+desc = descs.read()
+desc = desc.split('\n\n\n')
+
+
+for i in desc:
+	sku_header, sku_desc = i.split('\n\n')
+	sku_num, sku_title = sku_header.split(' - ')
+	dict[sku_num] = sku_title
+	dict[sku_num] = dict[sku_num], sku_desc
+
+for i in list:
+	sku_num, sku_list = i.split('\n\n<u')
+	sku_list = '<u' + sku_list
+	if dict.has_key(sku_num):
+		dict[sku_num] = dict[sku_num], sku_list
+	else:
+		dict[sku_num] = sku_list
+
+
+
+sku_info = dict[sku_input]
+sku_title_desc = sku_info[0]
+local_sku_title = sku_title_desc[0]
+local_sku_keyword = local_sku_title.replace(' ', 's ') + "s"
+local_sku_desc = sku_title_desc[1]
+local_sku_list = sku_info[1]
+
+print sku_input + ' - ' + local_sku_title + '\n\n' + local_sku_desc + '\n\n' + local_sku_keyword + '\n\n\n' + local_sku_list
